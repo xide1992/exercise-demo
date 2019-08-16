@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="OFF" monitorInterval="1800">
+    <Properties>
+        <Property name="catalinapath">${sys:catalina.base}/logs</Property>
+        <Property name="logpath">D:\NewJavaProject\exercise-demo\logs</Property>
+    </Properties>
+    <Appenders>
+        <!-- 控制台输出 -->
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %p [%c] - %m%n" />
+        </Console>
+
+        <!-- 系统启动日志输出文件 -->
+        <RollingRandomAccessFile name="systemAppender"
+                                 fileName="${catalinapath}/system/system.log"
+                                 filePattern="${catalinapath}/system/system-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%d %p [%c] - %m%n" />
+            <Filters>
+                <ThresholdFilter level="INFO"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+        </RollingRandomAccessFile>
+        <!-- ======================================================================================================= -->
+        <!-- ==========================================  日志组件配置 开始 ========================================= -->
+        <!-- ======================================================================================================= -->
+        <!--  日志, info级别及以上日志接收器 -->
+        <RollingRandomAccessFile name="commonInfoLogInfoAppender"
+                                 fileName="${logpath}/info.log"
+                                 filePattern="${logpath}/info-%d{yyyy-MM-dd}.log">
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %p%m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20" />
+        </RollingRandomAccessFile>
+
+        <!--  日志, warn级别及以上日志接收器 -->
+        <RollingRandomAccessFile name="commonWarnLogInfoAppender"
+                                 fileName="${logpath}/warn.log"
+                                 filePattern="${logpath}/warn-%d{yyyy-MM-dd}.log'">
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %p%m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20" />
+        </RollingRandomAccessFile>
+
+        <!--  日志, error级别及以上日志接收器 -->
+        <RollingRandomAccessFile name="commonErrorLogInfoAppender"
+                                 fileName="${logpath}/error.log"
+                                 filePattern="${logpath}/error-%d{yyyy-MM-dd}.log'">
+            <Filters>
+                <ThresholdFilter level="ERROR"/>
+                <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %p%m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20" />
+        </RollingRandomAccessFile>
+        <!-- ======================================================================================================= -->
+        <!-- ==========================================  日志组件配置 结束 ========================================= -->
+        <!-- ======================================================================================================= -->
+    </Appenders>
+    <Loggers>
+        <!-- ======================================================================================================= -->
+        <!-- ==========================================  日志组件配置 开始 ========================================= -->
+        <!-- ======================================================================================================= -->
+        <!--  日志 日志器-->
+        <Logger name="infoNet" level="info" additivity="false">
+            <AppenderRef ref="commonInfoLogInfoAppender"/>
+
+        </Logger>
+
+        <Logger name="warmNet" level="info" additivity="false">
+
+            <AppenderRef ref="commonWarnLogInfoAppender"/>
+
+        </Logger>
+
+        <Logger name="errorNet" level="info" additivity="false">
+
+            <AppenderRef ref="commonErrorLogInfoAppender"/>
+        </Logger>
+        <!-- ======================================================================================================= -->
+        <!-- ==========================================  日志组件配置 结束 ========================================= -->
+        <!-- ======================================================================================================= -->
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <!--<logger name="org.springframework" level="INFO"></logger>-->
+        <!--<logger name="org.mybatis" level="INFO"></logger>-->
+        <Root level="INFO" >
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="systemAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

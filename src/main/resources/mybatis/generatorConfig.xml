@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="mybatis/generatorConfig.properties" />
+    <!--<classPathEntry location="${driver.class.path}" />-->
+    <!-- apartment_order 库生成配置 -->
+    <context id="apartmentOrderTables" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8" />
+
+        <!-- 重命名 Bean 查询条件类的类名（默认命名为 Example） -->
+        <!--<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">-->
+        <!--<property name="searchString" value="Example$"/>-->
+        <!--<property name="replaceString" value="Criteria"/>-->
+        <!--</plugin>-->
+
+
+        <!--&lt;!&ndash; 添加 @Mapper 注解 &ndash;&gt;-->
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+
+        <!-- 序列化插件 -->
+        <!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>-->
+
+        <!-- 自动生成toString方法 -->
+        <!--<plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>-->
+
+        <!-- 自动生成equals方法和hashcode方法 -->
+        <!--<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>-->
+
+        <commentGenerator>
+            <property name="addRemarkComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库连接信息 -->
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}" />
+
+        <!-- 生成的 model 包路径 -->
+        <javaModelGenerator targetPackage="${model.package}" targetProject="${target.project}">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <!--<property name="rootClass" value="${model.root.class}" />-->
+        </javaModelGenerator>
+
+        <!-- 生成 xml mappers 文件路径 -->
+        <sqlMapGenerator targetPackage="${xml.mapper.package}" targetProject="${target.resources}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成的 dao 接口的包路径 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${dao.package}" targetProject="${target.project}">
+            <property name="enableSubPackages" value="true"/>
+            <!--<property name="rootInterface" value="${dao.root.interface}"/>-->
+        </javaClientGenerator>
+
+        <!-- 常规逻辑表 -->
+        <!--<table tableName="order" schema="xdz_db" domainObjectName="order">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true" />-->
+        <!--</table>-->
+        <table tableName="%" schema="xdz_db">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+            <ignoreColumn column="_timestamp"/>
+        </table>
+    </context>
+</generatorConfiguration>
