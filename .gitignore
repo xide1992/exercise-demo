@@ -30,4 +30,4 @@ HELP.md
 
 ### xdz ###
 /logs
-*.properties
+application-dev.properties
