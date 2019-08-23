@@ -1,5 +1,6 @@
 package com.exercise.demo.service.impl;
 
+import com.exercise.demo.dao.order.customized.ArticleInfoCustomizedMapper;
 import com.exercise.demo.dao.order.generated.ArticleInfoMapper;
 import com.exercise.demo.dao.page.AbstractSearchCondition;
 import com.exercise.demo.dao.page.OrderDirection;
@@ -15,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.Date;
 
 /**
@@ -27,6 +29,9 @@ public class ArticleService implements IArticleService {
 
     @Autowired
     ArticleInfoMapper articleInfoMapper;
+
+    @Autowired
+    ArticleInfoCustomizedMapper articleInfoCustomizedMapper;
 
     /**
      * 新增文章
@@ -110,7 +115,8 @@ public class ArticleService implements IArticleService {
     public Response<ArticleInfo> getArticleInfoById(long id) {
         Response<ArticleInfo> resp = new Response<ArticleInfo>();
         resp.setSucceed(true);
-        resp.setData(articleInfoMapper.selectByPrimaryKey(id));
+       // resp.setData(articleInfoMapper.selectByPrimaryKey(id));
+        resp.setData(articleInfoCustomizedMapper.getArticleInfoById(id).get(0));
         return resp;
     }
 
