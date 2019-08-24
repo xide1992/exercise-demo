@@ -14,9 +14,9 @@ public class LogHelper {
      * 如果日志写不进去，猜测原因slf4j.Logger在生产环境中在上下文中可能找不到对应的配置
      * 将org.slf4j.Logger替换成org.apache.log4j.Logger，采用原生的包
      */
-    private static final Logger INFO_NET_LOGGER = LogManager.getLogger("infoNet");
-    private static final Logger WARN_NET_LOGGER = LogManager.getLogger("warmNet");
-    private static final Logger ERROR_NET_LOGGER = LogManager.getLogger("errorNet");
+    private static final Logger INFO_NET_LOGGER = LogManager.getLogger("infoLog");
+    private static final Logger WARN_NET_LOGGER = LogManager.getLogger("warmLog");
+    private static final Logger ERROR_NET_LOGGER = LogManager.getLogger("errorLog");
     private static final String SEPARATOR_BEGIN = "[";
     private static final String SEPARATOR_END = "]";
 
