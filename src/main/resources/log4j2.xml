@@ -53,7 +53,7 @@
         <!--  日志, warn级别及以上日志接收器 -->
         <RollingRandomAccessFile name="commonWarnLogInfoAppender"
                                  fileName="${logpath}/warn.log"
-                                 filePattern="${logpath}/warn-%d{yyyy-MM-dd}.log'">
+                                 filePattern="${logpath}/warn-%d{yyyy-MM-dd}.log">
             <Filters>
                 <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
@@ -68,7 +68,7 @@
         <!--  日志, error级别及以上日志接收器 -->
         <RollingRandomAccessFile name="commonErrorLogInfoAppender"
                                  fileName="${logpath}/error.log"
-                                 filePattern="${logpath}/error-%d{yyyy-MM-dd}.log'">
+                                 filePattern="${logpath}/error-%d{yyyy-MM-dd}.log">
             <Filters>
                 <ThresholdFilter level="ERROR"/>
                 <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>
