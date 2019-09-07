@@ -20,7 +20,10 @@ public class DatabaseUtil {
 
     private static String PASSWORD = JdbcConstant.PASSWORD;
 
-    private static final String SQL = "SELECT * FROM ";// 数据库操作
+    /**
+     * 数据库操作
+     */
+    private static final String SQL = "SELECT * FROM ";
 
     static {
         try {
