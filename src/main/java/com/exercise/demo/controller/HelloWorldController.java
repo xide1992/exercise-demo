@@ -3,6 +3,7 @@ package com.exercise.demo.controller;
 import com.alibaba.fastjson.JSON;
 import com.exercise.demo.common.utils.AESUtil;
 import com.exercise.demo.common.utils.LogHelper;
+import com.exercise.demo.common.utils.MD5Util;
 import com.exercise.demo.model.po.order.OrderExtend;
 import com.exercise.demo.model.request.PageTestModel;
 import com.exercise.demo.model.request.TestSelectModel;
@@ -75,6 +76,18 @@ public class HelloWorldController {
     public String decrypt(String str) {
         try {
             return AESUtil.decrypt(str,"");
+        } catch (Throwable e) {
+            return "";
+        }
+    }
+
+    @GetMapping("/MD5")
+    @ApiOperation(value = "MD5加密")
+    @ApiImplicitParam(name = "str", value = "字符", required = true, dataType = "string", paramType = "query")
+    @ResponseBody
+    public String md5(String str) {
+        try {
+            return MD5Util.getMD5(str);
         } catch (Throwable e) {
             return "";
         }
