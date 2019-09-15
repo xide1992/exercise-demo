@@ -132,4 +132,22 @@ public class HelloWorldController {
             return "";
         }
     }
+
+    @GetMapping("/idCardValid")
+    @ApiOperation(value = "验证身份证合法性")
+    @ApiImplicitParam(name = "str", value = "字符", required = true, dataType = "string", paramType = "query")
+    @ResponseBody
+    public String idCardValid(String str) {
+        try {
+            boolean result=IdCardValidator.isValidatedAllIdcard(str);
+            if(result)
+            {
+                IdCardInfoExtractor extractor = new IdCardInfoExtractor(str);
+                return extractor.toString();
+            }
+            return "不合法";
+        } catch (Throwable e) {
+            return "";
+        }
+    }
 }
