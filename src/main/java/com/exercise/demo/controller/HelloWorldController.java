@@ -120,4 +120,16 @@ public class HelloWorldController {
             return "";
         }
     }
+
+    @GetMapping("/orderIdGenerate")
+    @ApiOperation(value = "生成订单号")
+    @ResponseBody
+    public String orderIdGenerate(HttpServletRequest request) {
+        try {
+
+            return OrderIdGenerateUtil.getOrderSerialId("xx");
+        } catch (Throwable e) {
+            return "";
+        }
+    }
 }
