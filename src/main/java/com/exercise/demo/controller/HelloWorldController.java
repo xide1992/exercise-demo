@@ -9,7 +9,6 @@ import com.exercise.demo.model.request.TestSelectModel;
 import com.exercise.demo.service.inter.ITestService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -114,7 +113,7 @@ public class HelloWorldController {
     @ResponseBody
     public String getIp(HttpServletRequest request) {
         try {
-            String result = "本机:" + IpUtil.getLocalHostAddress() + ",远程:" + IpUtil.getIp(request)+",name:"+IpUtil.getLocalHostName();
+            String result = "本机:" + IpUtil.getLocalHostAddress() + ",远程:" + IpUtil.getIp(request) + ",name:" + IpUtil.getLocalHostName();
             return result;
         } catch (Throwable e) {
             return "";
@@ -139,15 +138,38 @@ public class HelloWorldController {
     @ResponseBody
     public String idCardValid(String str) {
         try {
-            boolean result=IdCardValidator.isValidatedAllIdcard(str);
-            if(result)
-            {
+            boolean result = IdCardValidator.isValidatedAllIdcard(str);
+            if (result) {
                 IdCardInfoExtractor extractor = new IdCardInfoExtractor(str);
                 return extractor.toString();
             }
             return "不合法";
         } catch (Throwable e) {
             return "";
+        }
+    }
+
+    @GetMapping("/test")
+    @ApiOperation(value = "测试用")
+    @ApiImplicitParam(name = "str", value = "字符", required = true, dataType = "string", paramType = "query")
+    @ResponseBody
+    public void test(String str) {
+        try {
+
+            str = null;
+            //不抛异常
+            if ("xxxxx".equals(str)) {
+                return;
+            }
+
+            //抛异常
+            if (str.equals("xxxxx")) {
+                return;
+            }
+
+            return;
+        } catch (Throwable e) {
+            return;
         }
     }
 }
