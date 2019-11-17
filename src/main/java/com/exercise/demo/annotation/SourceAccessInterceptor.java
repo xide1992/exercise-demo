@@ -17,6 +17,10 @@ public class SourceAccessInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("进入拦截器了");
 
+        if(!(handler instanceof HandlerMethod)) {
+            return true;
+        }
+
         // 反射获取方法上的LoginRequred注解
         HandlerMethod handlerMethod = (HandlerMethod)handler;
         LoginRequired loginRequired = handlerMethod.getMethod().getAnnotation(LoginRequired.class);
