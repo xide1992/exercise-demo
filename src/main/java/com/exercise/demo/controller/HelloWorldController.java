@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -153,8 +154,9 @@ public class HelloWorldController {
     @ApiOperation(value = "测试用")
     @ApiImplicitParam(name = "str", value = "字符", required = true, dataType = "string", paramType = "query")
     @ResponseBody
-    public void test(String str) {
+    public void test(String str,HttpServletRequest request) {
         try {
+String sdfsd=request.getHeader("Authorization");
 
             str = null;
             //不抛异常
@@ -170,6 +172,15 @@ public class HelloWorldController {
             return;
         } catch (Throwable e) {
             return;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println();
+String line="";
+        String[] words = line.split(" ");
+        for (String word : words) {
+
         }
     }
 }
