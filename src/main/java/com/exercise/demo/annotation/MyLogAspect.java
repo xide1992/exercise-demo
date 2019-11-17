@@ -23,7 +23,7 @@ public class MyLogAspect {
 
     // 3. 环绕通知
     @Around("logPointCut()")
-    public void logAround(ProceedingJoinPoint joinPoint){
+    public Object logAround(ProceedingJoinPoint joinPoint){
         // 获取方法名称
         String methodName = joinPoint.getSignature().getName();
         // 获取入参
@@ -37,11 +37,12 @@ public class MyLogAspect {
 
         // 继续执行方法
         try {
-            joinPoint.proceed();
+            return  joinPoint.proceed();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
+            return null;
         }
-        System.out.println(methodName + "方法执行结束");
+        //System.out.println(methodName + "方法执行结束");
 
     }
 }
