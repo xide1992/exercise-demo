@@ -2,10 +2,12 @@ package com.exercise.demo.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.exercise.demo.annotation.MyField;
 import com.exercise.demo.common.utils.*;
 import com.exercise.demo.model.po.order.OrderExtend;
 import com.exercise.demo.model.request.PageTestModel;
 import com.exercise.demo.model.request.TestSelectModel;
+import com.exercise.demo.model.test.MyFieldTest;
 import com.exercise.demo.service.inter.ITestService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -176,11 +179,16 @@ String sdfsd=request.getHeader("Authorization");
     }
 
     public static void main(String[] args) {
-        System.out.println();
-String line="";
-        String[] words = line.split(" ");
-        for (String word : words) {
+        // 获取类模板
+        Class c = MyFieldTest.class;
 
+        // 获取所有字段
+        for(Field f : c.getDeclaredFields()){
+            // 判断这个字段是否有MyField注解
+            if(f.isAnnotationPresent(MyField.class)){
+                MyField annotation = f.getAnnotation(MyField.class);
+                System.out.println("字段:[" + f.getName() + "], 描述:[" + annotation.description() + "], 长度:[" + annotation.length() +"]");
+            }
         }
     }
 }
