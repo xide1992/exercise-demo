@@ -1,9 +1,6 @@
 package com.exercise.demo.common.utils;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
@@ -34,7 +31,8 @@ public class LocalDateTimeUtil {
 
     //Date转换为LocalDateTime
     public static LocalDateTime convertDateToLDT(Date date) {
-        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+       //  LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        return  date.toInstant().atZone(ZoneOffset.ofHours(8)).toLocalDateTime();
     }
 
     //LocalDateTime转换为Date
@@ -120,6 +118,11 @@ public class LocalDateTimeUtil {
 
     public static void main(String[] args) {
 
+        LocalDateTime now=convertDateToLDT(new Date());
+        System.out.println(ZoneId.systemDefault());
+
+        System.out.println("Current now: " + now);
+
         String timeee="2019-11-19 22:11:22";
         System.out.println(LocalDateTime.parse(timeee,DF_YYYY_MM_DD_HH_MM_SS).format(DF_YYYY_MM_DD));
         System.out.println(formatNow("yyyy年MM月dd日 HH:mm:ss"));
@@ -134,15 +137,29 @@ public class LocalDateTimeUtil {
         System.out.println("秒:" + betweenTwoTime(start, end, ChronoUnit.SECONDS));
         System.out.println("毫秒:" + betweenTwoTime(start, end, ChronoUnit.MILLIS));
         //增加二十分钟
-        System.out.println(formatTime(plus(LocalDateTime.now(),
-                20,
-                ChronoUnit.MINUTES), "yyyy年MM月dd日 HH:mm"));
+        System.out.println(formatTime(plus(LocalDateTime.now(), 20, ChronoUnit.MINUTES), "yyyy年MM月dd日 HH:mm"));
         //增加两年
-        System.out.println(formatTime(plus(LocalDateTime.now(),
-                2,
-                ChronoUnit.YEARS), "yyyy年MM月dd日 HH:mm"));
+        System.out.println(formatTime(plus(LocalDateTime.now(), 2, ChronoUnit.YEARS), "yyyy年MM月dd日 HH:mm"));
         System.out.println(getDayStart(LocalDateTime.now()));
         System.out.println(getDayEnd(LocalDateTime.now()));
+
+        LocalDate today = LocalDate.now();
+        System.out.println("Current date: " + today);
+        //add 1 week to the current date
+        LocalDate nextWeek = today.plus(1, ChronoUnit.WEEKS);
+        System.out.println("Next week: " + nextWeek);
+        //add 1 month to the current date
+        LocalDate nextMonth = today.plus(1, ChronoUnit.MONTHS);
+        System.out.println("Next month: " + nextMonth);
+        //add 1 year to the current date
+        LocalDate nextYear = today.plus(1, ChronoUnit.YEARS);
+        System.out.println("Next year: " + nextYear);
+        //add 10 years to the current date
+        LocalDate nextDecade = today.plus(1, ChronoUnit.DECADES);
+        System.out.println("Date after ten year: " + nextDecade);
+
+        LocalTime todayTime = LocalTime.now();
+        System.out.println("Current LocalTime: " + todayTime);
 
     }
 
