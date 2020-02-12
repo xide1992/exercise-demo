@@ -8,7 +8,8 @@
     <Properties>
         <!--${sys:catalina.home} 指向tomcat安装目录-->
         <Property name="catalinapath">${sys:catalina.base}/logs</Property>
-        <Property name="logpath">D:\NewJavaProject\exercise-demo\logs</Property>
+        <!--<Property name="logpath">D:\NewJavaProject\exercise-demo\logs</Property>-->
+        <Property name="logpath">/home/xide/logs</Property>
         <Property name="APP_NAME">exercise-demo</Property>
         <!--设置日志文件存储路径为tomcat/logs/${APP_NAME}-->
         <Property name="LOG_FILE_PATH">${sys:catalina.home}/logs/${APP_NAME}</Property>

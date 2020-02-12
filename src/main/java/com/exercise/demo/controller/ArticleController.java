@@ -1,5 +1,7 @@
 package com.exercise.demo.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.exercise.demo.model.Response;
 import com.exercise.demo.model.po.order.ArticleInfo;
 import com.exercise.demo.model.request.GetArticles;
@@ -55,5 +57,31 @@ public class ArticleController {
     @ResponseBody
     public Response<ArticleInfo> getArticleInfoById(@RequestParam long id) {
         return articleService.getArticleInfoById(id);
+    }
+
+
+    @GetMapping(value = "/{id}")
+    public Response<ArticleInfo> getArticleDetailById(@PathVariable(value = "id")  long id) {
+        return articleService.getArticleInfoById(id);
+    }
+
+    @GetMapping(value = "/page/{page}")
+    public String getArticleList(@PathVariable(value = "page") Integer page) {
+        GetArticles request = new GetArticles();
+        request.setPageIndex(page);
+        request.setPageSize(10);
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
+        return JSON.toJSONString(articleService.getArticleList(request),SerializerFeature.WriteDateUseDateFormat);
+    }
+
+    @GetMapping(value = "/{categoryId}/page/{page}")
+    public String getArticleList(@PathVariable(value = "page") Integer page,
+                                                  @PathVariable(value = "categoryId") Long categoryId) {
+        GetArticles request = new GetArticles();
+        request.setCategoryId(categoryId);
+        request.setPageIndex(page);
+        request.setPageSize(10);
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
+        return JSON.toJSONString(articleService.getArticleList(request),SerializerFeature.WriteDateUseDateFormat);
     }
 }

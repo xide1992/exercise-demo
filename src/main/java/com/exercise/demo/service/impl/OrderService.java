@@ -48,10 +48,10 @@ public class OrderService implements IOrderService {
 
         int result = mainOrderMapper.insertSelective(orderAdd);
         if (result > 0) {
-            response.setData("新增成功");
+            response.setBody("新增成功");
             return response;
         } else {
-            response.setData("新增失败");
+            response.setBody("新增失败");
             return response;
         }
     }
@@ -72,7 +72,7 @@ public class OrderService implements IOrderService {
         orderInfoExample.createCriteria().andIdGreaterThan(0L);
 
         List<MainOrder> orderInfoList = mainOrderMapper.selectByExample(orderInfoExample);
-        response.setData(JSON.toJSONString(orderInfoList));
+        response.setBody(JSON.toJSONString(orderInfoList));
         return response;
 
     }

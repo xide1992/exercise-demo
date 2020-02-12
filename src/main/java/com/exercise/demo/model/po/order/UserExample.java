@@ -465,6 +465,216 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andOpenidIsNull() {
+            addCriterion("openid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidIsNotNull() {
+            addCriterion("openid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidEqualTo(String value) {
+            addCriterion("openid =", value, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidNotEqualTo(String value) {
+            addCriterion("openid <>", value, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidGreaterThan(String value) {
+            addCriterion("openid >", value, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidGreaterThanOrEqualTo(String value) {
+            addCriterion("openid >=", value, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidLessThan(String value) {
+            addCriterion("openid <", value, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidLessThanOrEqualTo(String value) {
+            addCriterion("openid <=", value, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidLike(String value) {
+            addCriterion("openid like", value, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidNotLike(String value) {
+            addCriterion("openid not like", value, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidIn(List<String> values) {
+            addCriterion("openid in", values, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidNotIn(List<String> values) {
+            addCriterion("openid not in", values, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidBetween(String value1, String value2) {
+            addCriterion("openid between", value1, value2, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenidNotBetween(String value1, String value2) {
+            addCriterion("openid not between", value1, value2, "openid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyIsNull() {
+            addCriterion("session_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyIsNotNull() {
+            addCriterion("session_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyEqualTo(String value) {
+            addCriterion("session_key =", value, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyNotEqualTo(String value) {
+            addCriterion("session_key <>", value, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyGreaterThan(String value) {
+            addCriterion("session_key >", value, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyGreaterThanOrEqualTo(String value) {
+            addCriterion("session_key >=", value, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyLessThan(String value) {
+            addCriterion("session_key <", value, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyLessThanOrEqualTo(String value) {
+            addCriterion("session_key <=", value, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyLike(String value) {
+            addCriterion("session_key like", value, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyNotLike(String value) {
+            addCriterion("session_key not like", value, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyIn(List<String> values) {
+            addCriterion("session_key in", values, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyNotIn(List<String> values) {
+            addCriterion("session_key not in", values, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyBetween(String value1, String value2) {
+            addCriterion("session_key between", value1, value2, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionKeyNotBetween(String value1, String value2) {
+            addCriterion("session_key not between", value1, value2, "sessionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidIsNull() {
+            addCriterion("unionid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidIsNotNull() {
+            addCriterion("unionid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidEqualTo(String value) {
+            addCriterion("unionid =", value, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidNotEqualTo(String value) {
+            addCriterion("unionid <>", value, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidGreaterThan(String value) {
+            addCriterion("unionid >", value, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidGreaterThanOrEqualTo(String value) {
+            addCriterion("unionid >=", value, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidLessThan(String value) {
+            addCriterion("unionid <", value, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidLessThanOrEqualTo(String value) {
+            addCriterion("unionid <=", value, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidLike(String value) {
+            addCriterion("unionid like", value, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidNotLike(String value) {
+            addCriterion("unionid not like", value, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidIn(List<String> values) {
+            addCriterion("unionid in", values, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidNotIn(List<String> values) {
+            addCriterion("unionid not in", values, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidBetween(String value1, String value2) {
+            addCriterion("unionid between", value1, value2, "unionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnionidNotBetween(String value1, String value2) {
+            addCriterion("unionid not between", value1, value2, "unionid");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

@@ -18,8 +18,10 @@ public class GetArticleListResponse {
     private int pageIndex;
     @ApiModelProperty("每页数量")
     private int pageSize;
+    @ApiModelProperty("是否有更多数据")
+    private boolean hasMore;
     @ApiModelProperty("文章列表")
-    private List<ArticleInfo> supplierCityMappingList;
+    private List<ArticleInfo> articleInfoList;
 
     public long getTotalCount() {
         return totalCount;
@@ -45,11 +47,19 @@ public class GetArticleListResponse {
         this.pageSize = pageSize;
     }
 
-    public List<ArticleInfo> getSupplierCityMappingList() {
-        return supplierCityMappingList;
+    public boolean isHasMore() {
+        return hasMore;
     }
 
-    public void setSupplierCityMappingList(List<ArticleInfo> supplierCityMappingList) {
-        this.supplierCityMappingList = supplierCityMappingList;
+    public void setHasMore(boolean hasMore) {
+        this.hasMore = hasMore;
+    }
+
+    public List<ArticleInfo> getArticleInfoList() {
+        return articleInfoList;
+    }
+
+    public void setArticleInfoList(List<ArticleInfo> articleInfoList) {
+        this.articleInfoList = articleInfoList;
     }
 }

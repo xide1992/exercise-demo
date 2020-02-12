@@ -7,5 +7,7 @@ package com.exercise.demo.service.inter;
  */
 public interface IWeChatService {
 
+    String wxLogin(String code);
+
     void refreshWeChatImage();
 }

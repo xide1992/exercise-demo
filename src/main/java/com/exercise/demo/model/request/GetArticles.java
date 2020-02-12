@@ -27,6 +27,9 @@ public class GetArticles {
     @ApiModelProperty(value = "国家")
     private  String country;
 
+    @ApiModelProperty(value = "分类")
+    private  Long categoryId;
+
     public int getPageSize() {
         return pageSize;
     }
@@ -73,5 +76,13 @@ public class GetArticles {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

@@ -31,3 +31,4 @@ HELP.md
 ### xdz ###
 /logs
 application-dev.properties
+*.top.pfx

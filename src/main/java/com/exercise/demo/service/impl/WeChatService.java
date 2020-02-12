@@ -3,9 +3,14 @@ package com.exercise.demo.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.exercise.demo.common.utils.HttpRequestUtil;
+import com.exercise.demo.common.utils.LogHelper;
 import com.exercise.demo.model.Response;
+import com.exercise.demo.model.wechat.Jscode2sessionResponse;
 import com.exercise.demo.service.inter.IWeChatService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.apache.commons.io.FileUtils;
 
@@ -22,7 +27,36 @@ import java.util.Date;
 @Service
 public class WeChatService implements IWeChatService {
 
+    @Autowired
+    private static Environment env;
+
+    private static final String appid = env.getProperty("wechat.appid");
+    private static final  String secret = env.getProperty("wechat.secret");
+
     private static final String TEMP_FILE_PATH = "D:/";//"./temp/"
+
+    @Override
+    public String wxLogin(String code) {
+        try {
+
+            String url = "https://api.weixin.qq.com/sns/jscode2session?" +
+                    "appid=" + appid +
+                    "&secret=" + secret +
+                    "&js_code=" + code + "&grant_type=authorization_code";
+
+            String result = HttpRequestUtil.connect(url).get().html();
+            LogHelper.info("wechat", "111", "222", result);
+
+            Jscode2sessionResponse response = JSON.parseObject(result, Jscode2sessionResponse.class);
+            if (response != null) {
+                return response.getOpenid();
+            }
+
+            return "";
+        } catch (Exception e) {
+            return "";
+        }
+    }
 
     @Override
     public void refreshWeChatImage() {

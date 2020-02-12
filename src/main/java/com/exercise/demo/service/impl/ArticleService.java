@@ -92,10 +92,13 @@ public class ArticleService implements IArticleService {
         if (request.getImportantLevel() > 0) {
             cri.andImportantLevelEqualTo(request.getImportantLevel());
         }
+        if (request.getCategoryId()!=null&&  request.getCategoryId()>0) {
+            cri.andCategoryIdEqualTo(request.getCategoryId());
+        }
 
         Pagination<ArticleInfo> pageList = PaginationUtils.
                 pagingBy(params, () -> articleInfoMapper.selectByExample(articleInfoExample));
-        if (request == null) {
+        if (pageList == null) {
             return null;
         }
 
@@ -104,9 +107,10 @@ public class ArticleService implements IArticleService {
         getArticleListResponse.setPageIndex(pageList.getCurrentPage());
         getArticleListResponse.setPageSize(pageList.getPageSize());
         getArticleListResponse.setTotalCount(pageList.getTotalCount());
-        getArticleListResponse.setSupplierCityMappingList(pageList.getElements());
+        getArticleListResponse.setArticleInfoList(pageList.getElements());
+        getArticleListResponse.setHasMore(pageList.getElements().size()==request.getPageSize());
         resp.setSucceed(true);
-        resp.setData(getArticleListResponse);
+        resp.setBody(getArticleListResponse);
 
         return resp;
     }
@@ -115,8 +119,8 @@ public class ArticleService implements IArticleService {
     public Response<ArticleInfo> getArticleInfoById(long id) {
         Response<ArticleInfo> resp = new Response<ArticleInfo>();
         resp.setSucceed(true);
-       // resp.setData(articleInfoMapper.selectByPrimaryKey(id));
-        resp.setData(articleInfoCustomizedMapper.getArticleInfoById(id).get(0));
+    resp.setBody(articleInfoMapper.selectByPrimaryKey(id));
+       // resp.setData(articleInfoCustomizedMapper.getArticleInfoById(id).get(0));
         return resp;
     }
 

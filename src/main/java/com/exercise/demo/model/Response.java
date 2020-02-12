@@ -17,8 +17,8 @@ public class Response<T> {
     @ApiModelProperty("返回数据信息")
     private T body;
 
-    @ApiModelProperty("返回数据信息,兼容不同接口的格式")
-    private T data;
+//    @ApiModelProperty("返回数据信息,兼容不同接口的格式")
+//    private T data;
 
     @ApiModelProperty(value = "返回状态码")
     private ResponseCode statusCode;
@@ -41,13 +41,13 @@ public class Response<T> {
         this.body = body;
     }
 
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
+//    public T getData() {
+//        return data;
+//    }
+//
+//    public void setData(T data) {
+//        this.data = data;
+//    }
 
     public ResponseCode getStatusCode() {
         return statusCode;
