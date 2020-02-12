@@ -4,7 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.exercise.demo.common.utils.HttpRequestUtil;
 import com.exercise.demo.common.utils.LogHelper;
+import com.exercise.demo.dao.order.generated.UserMapper;
 import com.exercise.demo.model.Response;
+import com.exercise.demo.model.po.order.User;
+import com.exercise.demo.model.po.order.UserExample;
 import com.exercise.demo.model.wechat.Jscode2sessionResponse;
 import com.exercise.demo.service.inter.IWeChatService;
 import org.apache.commons.lang3.StringUtils;
@@ -13,11 +16,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.apache.commons.io.FileUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: xdz
@@ -28,16 +33,19 @@ import java.util.Date;
 public class WeChatService implements IWeChatService {
 
     @Autowired
-    private static Environment env;
+    UserMapper userMapper;
 
-    private static final String appid = env.getProperty("wechat.appid");
-    private static final  String secret = env.getProperty("wechat.secret");
+    @Autowired
+    private  Environment env;
 
     private static final String TEMP_FILE_PATH = "D:/";//"./temp/"
 
     @Override
     public String wxLogin(String code) {
         try {
+
+            String appid = env.getProperty("wechat.appid");
+            String secret = env.getProperty("wechat.secret");
 
             String url = "https://api.weixin.qq.com/sns/jscode2session?" +
                     "appid=" + appid +
@@ -48,12 +56,39 @@ public class WeChatService implements IWeChatService {
             LogHelper.info("wechat", "111", "222", result);
 
             Jscode2sessionResponse response = JSON.parseObject(result, Jscode2sessionResponse.class);
-            if (response != null) {
+            if (response != null && StringUtils.isNotBlank(response.getOpenid())) {
+                UserExample userExample = new UserExample();
+                userExample.createCriteria().andOpenidEqualTo(response.getOpenid());
+                List<User> userList = userMapper.selectByExample(userExample);
+                if (CollectionUtils.isEmpty(userList)) {
+                    User insert = new User();
+                    insert.setNickname("");
+                    insert.setAvatar("");
+                    insert.setPhone("");
+                    insert.setOpenid(response.getOpenid());
+                    if (StringUtils.isNotBlank(response.getSession_key())) {
+                        insert.setSessionKey(response.getSession_key());
+                    }
+                    if (StringUtils.isNotBlank(response.getUnionid())) {
+                        insert.setUnionid(response.getUnionid());
+                    }
+                    insert.setCreateTime(new Date());
+                    insert.setUpdateTime(new Date());
+                    userMapper.insertSelective(insert);
+                } else {
+                    if (StringUtils.isNotBlank(response.getSession_key())) {
+                        User update = new User();
+                        update.setId(userList.get(0).getId());
+                        update.setSessionKey(response.getSession_key());
+                        update.setUpdateTime(new Date());
+                        userMapper.updateByPrimaryKeySelective(update);
+                    }
+                }
                 return response.getOpenid();
             }
-
             return "";
         } catch (Exception e) {
+            LogHelper.error("wechat", "111", "222", "Exception", e);
             return "";
         }
     }

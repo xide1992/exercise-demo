@@ -31,4 +31,5 @@ HELP.md
 ### xdz ###
 /logs
 application-dev.properties
+generatorConfig.properties
 *.top.pfx
