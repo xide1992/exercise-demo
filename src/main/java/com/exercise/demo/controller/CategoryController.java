@@ -1,6 +1,7 @@
 package com.exercise.demo.controller;
 
 import com.exercise.demo.model.Response;
+import com.exercise.demo.model.po.order.Category;
 import com.exercise.demo.service.inter.ICategoryService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class CategoryController {
     private ICategoryService categoryService;
 
     @GetMapping
-    public Response<List<com.exercise.demo.model.po.order.Category>> categories() {
+    public Response<List<Category>> categories() {
         return categoryService.getCategoryList();
     }
 

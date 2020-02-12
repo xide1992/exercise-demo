@@ -1,6 +1,7 @@
 package com.exercise.demo.common.utils;
 
 import com.exercise.demo.common.constant.JdbcConstant;
+import com.exercise.demo.model.database.TableDetail;
 
 import java.sql.*;
 import java.util.*;
@@ -89,6 +90,46 @@ public class DatabaseUtil {
             }
         }
         return tableNames;
+    }
+
+    /**
+     * 获取数据库下的所有表名
+     */
+    public static List<TableDetail> getTableNamesNew() {
+        //与数据库的连接
+        Connection conn = getConnection();
+        PreparedStatement pStemt;
+        String sql = "select\n" +
+                "TABLE_NAME,\n" +
+                "TABLE_COMMENT \n" +
+                "from \n" +
+                "INFORMATION_SCHEMA.Tables \n" +
+                "where \n" +
+                "table_schema = 'xdz_db' ";
+        List<TableDetail> tableDetailList = new ArrayList<>();//列名注释集合
+        ResultSet rs = null;
+        try {
+            pStemt = conn.prepareStatement(sql);
+            rs = pStemt.executeQuery(sql);
+            while (rs.next()) {
+                TableDetail tableDetail = new TableDetail();
+                tableDetail.setName(rs.getString("TABLE_NAME"));
+                tableDetail.setComment(rs.getString("TABLE_COMMENT"));
+                tableDetailList.add(tableDetail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                    closeConnection(conn);
+                } catch (SQLException e) {
+                    LogHelper.error("databaseError", "", "", "getTableNamesNew close ResultSet and connection failure", e);
+                }
+            }
+        }
+        return tableDetailList;
     }
 
     /**

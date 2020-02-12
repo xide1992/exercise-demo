@@ -2,6 +2,7 @@ package com.exercise.demo.controller;
 
 import com.exercise.demo.common.utils.DatabaseUtil;
 import com.exercise.demo.model.Response;
+import com.exercise.demo.model.database.TableDetail;
 import com.exercise.demo.model.po.order.ArticleInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -24,8 +25,8 @@ public class DatabaseController {
 
     @ApiOperation(value = "获取表名", notes = "获取表名", produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/getTableNames")
-    public List<String> getTableNames() {
-        return DatabaseUtil.getTableNames();
+    public List<TableDetail> getTableNames() {
+        return DatabaseUtil.getTableNamesNew();
     }
 
     @ApiOperation(value = "获取表每行信息")
