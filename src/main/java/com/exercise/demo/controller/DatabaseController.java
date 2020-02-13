@@ -2,6 +2,8 @@ package com.exercise.demo.controller;
 
 import com.exercise.demo.common.utils.DatabaseUtil;
 import com.exercise.demo.model.Response;
+import com.exercise.demo.model.database.ColumnDetail;
+import com.exercise.demo.model.database.IndexDetail;
 import com.exercise.demo.model.database.TableDetail;
 import com.exercise.demo.model.po.order.ArticleInfo;
 import io.swagger.annotations.Api;
@@ -34,15 +36,15 @@ public class DatabaseController {
     @ApiImplicitParam(name = "tableName", value = "表名", required = true,
             dataType = "String", paramType = "query")
     @ResponseBody
-    public LinkedHashMap<String, List<String>> getTableColumnInfo(@RequestParam String tableName) {
-        List<String> tablesNames = DatabaseUtil.getTableNames();
-        if (tablesNames == null || tablesNames.size() <= 0) {
-            return null;
-        }
-        if (!tablesNames.contains(tableName)) {
-            return null;
-        }
-        return DatabaseUtil.getColumnAllInfo(tableName);
+    public List<ColumnDetail> getTableColumnInfo(@RequestParam String tableName) {
+//        List<String> tablesNames = DatabaseUtil.getTableNames();
+//        if (tablesNames == null || tablesNames.size() <= 0) {
+//            return null;
+//        }
+//        if (!tablesNames.contains(tableName)) {
+//            return null;
+//        }
+        return DatabaseUtil.getColunms(tableName);
     }
 
 
@@ -51,15 +53,15 @@ public class DatabaseController {
     @ApiImplicitParam(name = "tableName", value = "表名", required = true,
             dataType = "String", paramType = "query")
     @ResponseBody
-    public LinkedHashMap<String, List<String>> getIndexInfo(@RequestParam String tableName) {
-        List<String> tablesNames = DatabaseUtil.getTableNames();
-        if (tablesNames == null || tablesNames.size() <= 0) {
-            return null;
-        }
-        if (!tablesNames.contains(tableName)) {
-            return null;
-        }
-        return DatabaseUtil.getIndexInfo(tableName);
+    public  List<IndexDetail> getIndexInfo(@RequestParam String tableName) {
+//        List<String> tablesNames = DatabaseUtil.getTableNames();
+//        if (tablesNames == null || tablesNames.size() <= 0) {
+//            return null;
+//        }
+//        if (!tablesNames.contains(tableName)) {
+//            return null;
+//        }
+        return DatabaseUtil.getIndexs(tableName);
     }
 
 }

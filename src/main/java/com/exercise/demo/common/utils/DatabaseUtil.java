@@ -1,6 +1,8 @@
 package com.exercise.demo.common.utils;
 
 import com.exercise.demo.common.constant.JdbcConstant;
+import com.exercise.demo.model.database.ColumnDetail;
+import com.exercise.demo.model.database.IndexDetail;
 import com.exercise.demo.model.database.TableDetail;
 
 import java.sql.*;
@@ -93,12 +95,12 @@ public class DatabaseUtil {
     }
 
     /**
-     * 获取数据库下的所有表名
+     * 获取数据库下的所有表名/表注释
      */
     public static List<TableDetail> getTableNamesNew() {
         //与数据库的连接
         Connection conn = getConnection();
-        PreparedStatement pStemt;
+        PreparedStatement ps;
         String sql = "select\n" +
                 "TABLE_NAME,\n" +
                 "TABLE_COMMENT \n" +
@@ -106,11 +108,11 @@ public class DatabaseUtil {
                 "INFORMATION_SCHEMA.Tables \n" +
                 "where \n" +
                 "table_schema = 'xdz_db' ";
-        List<TableDetail> tableDetailList = new ArrayList<>();//列名注释集合
+        List<TableDetail> tableDetailList = new ArrayList<>();
         ResultSet rs = null;
         try {
-            pStemt = conn.prepareStatement(sql);
-            rs = pStemt.executeQuery(sql);
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery(sql);
             while (rs.next()) {
                 TableDetail tableDetail = new TableDetail();
                 tableDetail.setName(rs.getString("TABLE_NAME"));
@@ -130,6 +132,79 @@ public class DatabaseUtil {
             }
         }
         return tableDetailList;
+    }
+
+    /**
+     * 获取表下所有列以及相关属性
+     */
+    public static List<ColumnDetail> getColunms(String tableName) {
+        //与数据库的连接
+        Connection conn = getConnection();
+        PreparedStatement ps;
+        String sql = "show full columns from " + tableName;
+        List<ColumnDetail> columnDetailList = new ArrayList<>();//列名注释集合
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery(sql);
+            while (rs.next()) {
+                ColumnDetail columnDetail = new ColumnDetail();
+                columnDetail.setField(rs.getString("Field"));
+                columnDetail.setType(rs.getString("Type"));
+                columnDetail.setCanEmpty(rs.getString("Null"));
+                columnDetail.setKey(rs.getString("Key"));
+                columnDetail.setDefaultValue(rs.getString("Default"));
+                columnDetail.setComment(rs.getString("Comment"));
+                columnDetailList.add(columnDetail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                    closeConnection(conn);
+                } catch (SQLException e) {
+                    LogHelper.error("databaseError", "", "", "getColunms close ResultSet and connection failure", e);
+                }
+            }
+        }
+        return columnDetailList;
+    }
+
+    /**
+     * 获取表下所有索引以及相关属性
+     */
+    public static List<IndexDetail> getIndexs(String tableName) {
+        //与数据库的连接
+        Connection conn = getConnection();
+        PreparedStatement ps;
+        String sql = "show index from " + tableName;
+        List<IndexDetail> indexDetailList = new ArrayList<>();//列名注释集合
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery(sql);
+            while (rs.next()) {
+                IndexDetail indexDetail = new IndexDetail();
+                indexDetail.setNonUnique(rs.getString("Non_unique"));
+                indexDetail.setKeyName(rs.getString("Key_name"));
+                indexDetail.setColumnName(rs.getString("Column_name"));
+                indexDetailList.add(indexDetail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                    closeConnection(conn);
+                } catch (SQLException e) {
+                    LogHelper.error("databaseError", "", "", "getIndexs close ResultSet and connection failure", e);
+                }
+            }
+        }
+        return indexDetailList;
     }
 
     /**
